@@ -1,7 +1,7 @@
 function update_challenges_power() {
     player.challenge_strength_1 = 256;//1000;
     // Photonic Challenge 7: time is 256x slower
-    if (player.challenges['p7'].inC()) player.challenge_strength_1 *= 256;
+    if (player.challenges['p7'].inC()) player.challenge_strength_1 *= 1;
     // p11: time is faster
     player.challenge_strength_1 /= player.upgrades["p11"].get_effect().toInt();
     // Photonic Challenge 4: light slows down time
@@ -17,19 +17,19 @@ function update_challenges_power() {
     // g12: more production is protected
     if (player.upgrades['g12'].is_active()) player.challenge_addinfo_2 = player.upgrades['g12'].get_effect();
     
-    player.challenge_strength_2 = 0.2;
+    player.challenge_strength_2 = 1;
     // g11: power is increased base on unspent Gravitons
     player.challenge_strength_2 = player.upgrades['g11'].get_effect().toInt();
     // "Controlled Reaction" experiment: production multipliers are reduced
     if (player.evolutions['b12'].is_active()) player.challenge_strength_2 *= player.experiments['controlled_reaction'].get_nerf().toInt();
 
-    player.challenge_strength_3 = big(100);
+    player.challenge_strength_3 = big(1);
     // n02: slowdown of higher-tier dimensions is reduced
     player.challenge_strength_3 = player.upgrades['n02'].get_effect();
     // "Quantum Entanglement" experiment: higher dimensions are slower
     if (player.evolutions['b12'].is_active()) player.challenge_strength_3 = player.challenge_strength_3.mult(player.experiments['quantum_entanglement'].get_nerf());
 
-    player.challenge_strength_4 = new BigNumber(1e10);
+    player.challenge_strength_4 = new BigNumber(1e1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000);
     // achievement 42: you can store 2 times more resources
     if (player.achievements['42'].complete) player.challenge_strength_4 = player.challenge_strength_4.mult(2);
     // achievement 91: you can store 1e10 times more resources
@@ -61,7 +61,7 @@ function update_challenges_power() {
 
     player.challenge_strength_5 = player.matter.add(1).pow(nerf_5_power);
 
-    player.challenge_strength_6 = 4;
+    player.challenge_strength_6 = 10;
     // d21: unlock new Dimension
     if (player.upgrades['d21'].is_active()) player.challenge_strength_6 += 1;
     // d41: unlock new Dimension
@@ -75,16 +75,15 @@ function update_challenges_power() {
 
     let adj_time_passed = player.time_passed;
     // population slows down time
-    adj_time_passed /= power_population_time().toInt();
 
     player.challenge_strength_7 = new BigNumber(3);
     player.challenge_strength_7 = player.challenge_strength_7.pow(Math.pow((adj_time_passed / 1000) + 1, 0.5) * Math.pow(2, adj_time_passed / 60000) - 1);
 
-    player.challenge_strength_8 = 100;
+    player.challenge_strength_8 = 1e100;
 
     player.challenge_strength_9 = 2;
 
-    player.challenge_strength_10 = 0.5;
+    player.challenge_strength_10 = 1;
 
-    player.challenge_strength_11 = 0.5;
+    player.challenge_strength_11 = 1;
 }
